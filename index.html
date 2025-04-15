@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The PLA Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      color: black;
+    }
+    .container {
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 5px 10px rgba(128, 128, 128, 0.3);
+      animation: floatIn 0.8s ease-out;
+    }
+    @keyframes floatIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      margin-bottom: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      color: black;
+    }
+    .subheading {
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+      color: #555;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .link-box {
+      background: linear-gradient(135deg, #7c4dff, #9a68ff);
+      color: white;
+      padding: 30px 20px;
+      text-decoration: none;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4);
+      transition: background 0.6s ease-in-out, box-shadow 0.3s, transform 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .link-box i {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .link-box:hover {
+      background: linear-gradient(135deg, #9a68ff, #7c4dff);
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(147, 51, 234, 0.5);
+    }
+    .link-box:hover i {
+      transform: scale(1.2);
+    }
+    .footer-note {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>The PLA Project</h1>
+    <p class="subheading">✨ A 3D printing fundraiser campaign</p>
+    <div class="grid">
+      <a class="link-box" href="https://yourcataloglink.com" target="_blank"><i class="bi bi-journal-richtext"></i>Catalog</a>
+      <a class="link-box" href="order.html"><i class="bi bi-cart"></i>Order</a>
+      <a class="link-box" href="price-estimator.html"><i class="bi bi-calculator"></i>Price Estimator</a>
+      <a class="link-box" href="https://youraboutpagelink.com" target="_blank"><i class="bi bi-info-circle"></i>About</a>
+    </div>
+    <p class="footer-note">This website will be made public <strong>15 Apr</strong></p>
+  </div>
+</body>
+</html>
