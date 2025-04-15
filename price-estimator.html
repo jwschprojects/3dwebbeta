@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3D Print Price Estimator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 40px;
+      text-align: center;
+      font-size: 14px;
+    }
+    a.back-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #7c4dff;
+      font-weight: bold;
+      font-size: 14px;
+      border: 1px solid #7c4dff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.2s ease-in-out;
+    }
+    a.back-button:hover {
+      background-color: #7c4dff;
+      color: white;
+    }
+    h2 {
+      color: #333;
+      font-size: 22px;
+    }
+    h2 span {
+      font-weight: bold;
+    }
+    table {
+      width: 70%;
+      max-width: 900px;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+    }
+    th {
+      background-color: #9b59b6;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    input[type="number"] {
+      width: 60px;
+      padding: 6px;
+      text-align: center;
+      border: none;
+      background-color: transparent;
+      font-size: 13px;
+    }
+    .note-top {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .note-bottom {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #555;
+      text-align: center;
+    }
+    .note-bottom ul {
+      list-style-type: disc;
+      display: inline-block;
+      text-align: left;
+      margin: 0 auto;
+      padding-left: 20px;
+    }
+    .guide-table {
+      margin-top: 20px;
+    }
+    .guide-table th {
+      background-color: #666;
+    }
+    .uncertainty {
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-button">← Back to Home</a>
+  <h2>3D Print Price <span>Estimator</span></h2>
+  <p class="note-top"><strong>NOTE:</strong> Price estimation is <strong>NOT</strong> the final price. Additional fees may apply.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>MATERIAL COST (g)</th>
+        <th>PRINT TIME (h)</th>
+        <th>CAPITAL</th>
+        <th>ESTIMATED PRICE</th>
+        <th>DEBUG</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="number" id="filament" value="0"></td>
+        <td><input type="number" id="print-time" value="0"></td>
+        <td id="capital">Rp 0</td>
+        <td><span id="price">Rp 0</span><br><span class="uncertainty" id="uncertainty">±Rp 0</span></td>
+        <td id="debug">-</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="guide-table">
+    <thead>
+      <tr>
+        <th>RANGE (g)</th>
+        <th>MARGIN</th>
+        <th>HOURLY COST (Rp)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>0 - 10</td><td>4.5</td><td>5000</td></tr>
+      <tr><td>11 - 30</td><td>3.15</td><td>3750</td></tr>
+      <tr><td>31 - 50</td><td>3.0</td><td>3350</td></tr>
+      <tr><td>51 - 70</td><td>2.9</td><td>3350</td></tr>
+      <tr><td>71 - 100</td><td>2.8</td><td>3350</td></tr>
+      <tr><td>101 - 150</td><td>2.75</td><td>3200</td></tr>
+      <tr><td>151 - 300</td><td>2.7</td><td>3000</td></tr>
+      <tr><td>301 - 500</td><td>2.65</td><td>3000</td></tr>
+      <tr><td>> 500</td><td>2.6</td><td>2800</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-bottom">
+    <ul>
+      <li><strong>All print models are customizable</strong> in size and infill density. Please consult to adjust pricing.</li>
+      <li><strong>AMS (Multicolor)</strong> prints have a lower per-object cost as order quantity increases due to reduced material waste and printing time.</li>
+    </ul>
+  </div>
+
+  <script>
+    const guideTable = [
+      { max: 10, margin: 4.5, hourly: 5000 },
+      { max: 30, margin: 3.15, hourly: 3750 },
+      { max: 50, margin: 3.0, hourly: 3350 },
+      { max: 70, margin: 2.9, hourly: 3350 },
+      { max: 100, margin: 2.8, hourly: 3350 },
+      { max: 150, margin: 2.75, hourly: 3200 },
+      { max: 300, margin: 2.7, hourly: 3000 },
+      { max: 500, margin: 2.65, hourly: 3000 },
+      { max: Infinity, margin: 2.6, hourly: 2800 }
+    ];
+
+    function formatCurrency(value) {
+      return `Rp ${value.toLocaleString("id-ID")}`;
+    }
+
+    function roundToNearest100(num) {
+      return Math.round(num / 100) * 100;
+    }
+
+    function getGuideInfo(filament) {
+      return guideTable.find(entry => filament <= entry.max);
+    }
+
+    function getRangeString(filament) {
+      let prevMax = 0;
+      for (let entry of guideTable) {
+        if (filament <= entry.max) {
+          return `${prevMax + 1}-${entry.max}g`;
+        }
+        prevMax = entry.max;
+      }
+      return `> ${prevMax}g`;
+    }
+
+    function calculatePrice() {
+      const filament = Number(document.getElementById("filament").value);
+      const printTime = Number(document.getElementById("print-time").value);
+
+      const guide = getGuideInfo(filament);
+      const range = getRangeString(filament);
+      const filamentCost = ((filament * 1.1) / 1000) * 160000;
+      const printCost = printTime * guide.hourly;
+      const baseCost = filamentCost + printCost;
+      const price = roundToNearest100(baseCost * guide.margin);
+
+      const uncertainty = roundToNearest100(price * 0.1);
+
+      document.getElementById("capital").textContent = formatCurrency(roundToNearest100(baseCost));
+      document.getElementById("price").textContent = formatCurrency(price);
+      document.getElementById("uncertainty").textContent = `±${formatCurrency(uncertainty)}`;
+      document.getElementById("debug").textContent = `${range}, ((${filament}*1.1)/1000*160000 + ${printTime}*${guide.hourly}) * ${guide.margin}`;
+    }
+
+    document.addEventListener("input", calculatePrice);
+  </script>
+</body>
+</html>
