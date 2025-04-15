@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Options</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #7c4dff, #9a68ff);
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: black;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 5px 10px rgba(128, 128, 128, 0.3);
+      animation: floatIn 0.8s ease-out;
+    }
+    @keyframes floatIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .subtext {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 25px;
+    }
+    .button-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .order-button {
+      padding: 15px;
+      background: linear-gradient(135deg, #7c4dff, #9a68ff);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .order-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .google-form-button {
+      background: #4285f4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Choose your preferred order method</h1>
+    <p class="subtext"><strong>Offline Booth</strong> – <strong>Apr 15 – May 2</strong>, located at cafeteria swimming pool entrance</p>
+    <div class="button-grid">
+      <a class="order-button" href="https://discord.gg/yk2Wj85v" target="_blank">Discord – 10% off all orders!</a>
+      <a class="order-button google-form-button" href="https://forms.gle/Kb5WfzkPTKZWbVxc7" target="_blank">Google Form</a>
+    </div>
+  </div>
+</body>
+</html>
