@@ -18,6 +18,7 @@
       min-height: 100vh;
       overflow: hidden;
       color: black;
+      flex-direction: column;
     }
     .container {
       max-width: 500px;
@@ -40,9 +41,10 @@
       font-size: 2rem;
       color: black;
     }
-    .subheading {
-      font-size: 0.9rem;
+    h2 {
       margin-bottom: 30px;
+      font-weight: 400;
+      font-size: 1rem;
       color: #555;
     }
     .grid {
@@ -78,24 +80,24 @@
     .link-box:hover i {
       transform: scale(1.2);
     }
-    .footer-note {
-      font-size: 0.8rem;
+    .announcement {
+      margin-top: 40px;
+      font-size: 0.9rem;
       color: #888;
-      margin-top: 25px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>The PLA Project</h1>
-    <p class="subheading">✨ A 3D printing fundraiser campaign</p>
+    <h2>✨ A 3D Printing Fundraiser Campaign</h2>
     <div class="grid">
-      <a class="link-box" href="https://yourcataloglink.com" target="_blank"><i class="bi bi-journal-richtext"></i>Catalog</a>
+      <a class="link-box" href="https://your-catalog-link.com" target="_blank"><i class="bi bi-journal-richtext"></i>Catalog</a>
       <a class="link-box" href="order.html"><i class="bi bi-cart"></i>Order</a>
       <a class="link-box" href="price-estimator.html"><i class="bi bi-calculator"></i>Price Estimator</a>
-      <a class="link-box" href="https://youraboutpagelink.com" target="_blank"><i class="bi bi-info-circle"></i>About</a>
+      <a class="link-box" href="contact.html"><i class="bi bi-envelope"></i>Contact</a>
     </div>
-    <p class="footer-note">This website will be made public <strong>15 Apr</strong></p>
   </div>
+  <p class="announcement">This website will be made public on <strong>15 Apr</strong>.</p>
 </body>
 </html>
